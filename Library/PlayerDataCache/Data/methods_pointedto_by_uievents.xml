@@ -1,0 +1,10 @@
+<linker>
+	<assembly fullname="Vuforia.UnityExtensions">
+		<type fullname="Vuforia.ContentPositioningBehaviour">
+			<method name="PositionContentAtPlaneAnchor"/>
+		</type>
+		<type fullname="Vuforia.PlaneFinderBehaviour">
+			<method name="PerformHitTest"/>
+		</type>
+	</assembly>
+</linker>
