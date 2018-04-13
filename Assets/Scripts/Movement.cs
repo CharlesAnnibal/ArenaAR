@@ -4,28 +4,36 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
+	public float speed;
+	Vector3 movement;
+	Rigidbody playerRigidbody;
 	// Use this for initialization
+	void Awake(){
+		playerRigidbody = GetComponent <Rigidbody>();
+	}
+
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//this.GetComponent<Rigidbody>().AddForce(Vector3.down * 20000f * this.GetComponent<Rigidbody>().mass);
-		/*float translation = Input.GetAxis("Vertical") * speed;
-        float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
-
 		
+	}
 
-		if (Input.GetButtonDown("Horizontal")){
-			float translation = Input.GetAxis("Horizontal") * speed;
-			this.transform.position =  new Vector3(this.transform.position.x - 1000f,this.transform.position.y,this.transform.position.z);
-		}
+	void FixedUpdate(){
+		float horizontal = Input.GetAxisRaw("Horizontal");
+		float vertical  = Input.GetAxisRaw("Vertical");
+		Move(horizontal,vertical);
+	}
 
-		if (Input.GetButtonDown("Vertical")){
-			float translation = Input.GetAxis("Vertical") * speed;
-			this.transform.position =  new Vector3(this.transform.position.x - 1000f,this.transform.position.y,this.transform.position.z);
-		}*/
+	void Move(float h,float v){
+		movement.Set(h,0f,v);
+		movement = movement.normalized * speed * Time.deltaTime;
+		playerRigidbody.MovePosition(transform.position + movement);
+	}
+
+	void Turning(){
 
 	}
 }
