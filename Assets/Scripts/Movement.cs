@@ -43,51 +43,109 @@ public class Movement : MonoBehaviour {
 	void Turning(float h, float v){
 		var angleH = ((h * 90F * Time.deltaTime) * 100f);
 		var angleV = ((v * 90F * Time.deltaTime) * 100f);
-		Debug.Log("Horizontal:"+h+"  Vertical"+v);
+		
 		r = (angleH + angleV / 2f);
+		Debug.Log("Horizontal:"+h+"  Vertical"+v+"  r="+r);
 		switch((int)h){
 			case 1:
 			  Debug.Log("DIREITA");	
-              Rotation(v,r,90f);
+              Rotation("DIREITA",v,r);
               break;
 			case -1:
 			  Debug.Log("ESQUERDA");
-              Rotation(v,r,-90f);
+              Rotation("ESQUERDA",v,r);
               break;
 			case 0:
-              Rotation(v,r,0f);
+              Rotation("NEUTRO",v,r);
               break;    
 		}
 		
 	}
 
-	void Rotation(float v,float r, float limit=0f){
+	void Rotation(string h,float v,float r){
+		var limit = 0f;
+		var oposite = 0f;
 		switch((int)v){
 			case 1:
-			    Debug.Log("CIMA");
-				if(limit == 0f){
-					limit = 0f;
+			    if(h=="DIREITA"){
+					limit = 45f;
+					oposite = -135f;
+				}else if(h=="ESQUERDA"){
+					limit = -45f;
+					oposite = 135f;
 				}else{
-					limit = limit / 2f;
+					limit = 0f;
+					oposite = 180f;
 				}
 				break;
 			case -1:
-			    Debug.Log("BAIXO");
-				if(limit == 0f){
-					limit = 180f;
+			    if(h=="DIREITA"){
+					limit = 135f;
+					oposite = -45f;
+				}else if(h=="ESQUERDA"){
+					limit = -135f;
+					oposite = 45f;
 				}else{
-					limit = (limit + (limit / 2));	
+					limit = 180f;
+					oposite = 0f;
 				}	
 				break;
 			case 0:
-				limit = limit;
+				if(h=="DIREITA"){
+					limit = 90f;
+				}else if(h=="ESQUERDA"){
+					limit = -90f;
+				}
 				break;	
 		}
-		if(playerRigidbody.rotation.eulerAngles.y < limit){
+		
+		var playerAngle = playerRigidbody.rotation.eulerAngles.y;
+
+		if(playerRigidbody.rotation.eulerAngles.y > 180f){
+			playerAngle = playerRigidbody.rotation.eulerAngles.y -360f;
+		}
+		Debug.Log("Angulo P1="+playerAngle+" LIMIT="+limit);
+
+		if(playerAngle < limit){
+			rotation.Set(0f,r,0f);
+			Quaternion deltaRotation = Quaternion.Euler(rotation  * Time.deltaTime);
+        	playerRigidbody.MoveRotation(playerRigidbody.rotation * deltaRotation);
+		}else{
+			r = 0f - r;
 			rotation.Set(0f,r,0f);
 			Quaternion deltaRotation = Quaternion.Euler(rotation  * Time.deltaTime);
         	playerRigidbody.MoveRotation(playerRigidbody.rotation * deltaRotation);
 		}
 	
+	}
+
+	void Rotating(float r,float limit,float oposite){
+		var rotate = r;
+		var playerAngle = playerRigidbody.rotation.eulerAngles.y;
+		if(playerAngle < 0f){//ENTRE -179 ATÉ 0
+
+			
+			if(playerAngle < limit && playerAngle > oposite){//(LIMIT 45- OPOSTO-135)  (LIMIT 90 OPOSTO -90)
+				rotate = rotate;
+			}else if(playerAngle > limit && playerAngle < oposite){//(LIMIT -45 OPOSTO 135)  (LIMIT -90 OPOSTO 90) (0 - 180)
+				rotate = 0f - rotate;
+			}
+			rotation.Set(0f,rotate,0f);
+			Quaternion deltaRotation = Quaternion.Euler(rotation  * Time.deltaTime);
+			playerRigidbody.MoveRotation(playerRigidbody.rotation * deltaRotation);
+
+		}else{
+			if(playerAngle > limit && playerAngle < oposite){//(LIMIT -45 OPOSTO 135)  (LIMIT -90 OPOSTO 90) (0 - 180)
+				rotate = 0f - rotate;
+			}else if(playerAngle < limit){
+				rotate = rotate;
+			}
+
+			rotation.Set(0f,rotate,0f);
+			Quaternion deltaRotation = Quaternion.Euler(rotation  * Time.deltaTime);
+			playerRigidbody.MoveRotation(playerRigidbody.rotation * deltaRotation);
+		}
+		
+		
 	}
 }
