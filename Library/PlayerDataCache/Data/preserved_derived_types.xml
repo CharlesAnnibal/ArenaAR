@@ -15,7 +15,9 @@
 <type fullname="ARTrackedCamera" preserve="all"/>
 <type fullname="ARTrackedObject" preserve="all"/>
 <type fullname="ARTransitionalCamera" preserve="all"/>
+<type fullname="AIMovement" preserve="all"/>
 <type fullname="Movement" preserve="all"/>
+<type fullname="Movementteste" preserve="all"/>
 <type fullname="DefaultInitializationErrorHandler" preserve="all"/>
 <type fullname="DefaultTrackableEventHandler" preserve="all"/>
 </assembly>

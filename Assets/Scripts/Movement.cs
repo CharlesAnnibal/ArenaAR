@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
-	public float speed;
+	public float creatureSpeed;
+	public float creatureRunning;
+	protected float speed;
 	protected float r;
 	Vector3 movement;
 	Vector3 rotation;
 	Rigidbody playerRigidbody;
+
+	Animator anim;
 	// Use this for initialization
 	void Awake(){
 		playerRigidbody = GetComponent <Rigidbody>();
+		anim 			= GetComponent <Animator>();
 	}
 
 	void Start () {
@@ -26,15 +31,40 @@ public class Movement : MonoBehaviour {
 	void FixedUpdate(){
 		float horizontal = Input.GetAxisRaw("Horizontal");
 		float vertical  = Input.GetAxisRaw("Vertical");
+		float running = Input.GetAxisRaw("Run");
 		Move(horizontal,vertical);
 		Turning(horizontal,vertical);
+		Run(running);
+		MovementAnimations(horizontal,vertical,running);
+	}
+
+	void MovementAnimations(float h,float v,float running){
+		if(h != 0f || v !=0f){
+			if(running != 0f){
+				anim.SetBool("isWalking",false);
+				anim.SetBool("isRunning",true);
+			}else{
+				anim.SetBool("isWalking",true);
+				anim.SetBool("isRunning",false);
+			}
+		}else{
+			anim.SetBool("isWalking",false);
+			anim.SetBool("isRunning",false);
+		}
 	}
 
 	void Move(float h,float v){
 		movement.Set(h,0f,v);
 		movement = movement.normalized * speed * Time.deltaTime;
 		playerRigidbody.MovePosition(transform.position + movement);
-		//playerRigidbody.position = new Vector3(playerRigidbody.position.x,0f,playerRigidbody.position.z);
+	}
+
+	void Run(float running){
+		if(running==1){
+			speed = creatureRunning;	
+		}else{
+			speed = creatureSpeed;
+		}	
 	}
 
 	void Turning(float h, float v){
