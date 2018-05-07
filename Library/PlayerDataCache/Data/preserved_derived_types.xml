@@ -1,4 +1,24 @@
 <linker>
+<assembly fullname="Assembly-CSharp-firstpass">
+<type fullname="Projectile" preserve="all"/>
+<type fullname="SimpleController" preserve="all"/>
+<type fullname="AnalogActor" preserve="all"/>
+<type fullname="LeoLuz.AnalogicKnob" preserve="all"/>
+<type fullname="Input" preserve="all"/>
+<type fullname="InputDebug" preserve="all"/>
+<type fullname="TouchToPcInput.TouchScopeToButton" preserve="all"/>
+<type fullname="LeoLuz.UIButtonToAxis" preserve="all"/>
+<type fullname="LeoLuz.UIButtonToButton" preserve="all"/>
+<type fullname="ArrayUtility" preserve="all"/>
+<type fullname="DebugUtility" preserve="all"/>
+<type fullname="enableOnTriggerEnter" preserve="all"/>
+<type fullname="AnimatorStateTool" preserve="all"/>
+<type fullname="InstantiateOnAnimationEvent" preserve="all"/>
+<type fullname="PerformanceTests" preserve="all"/>
+<type fullname="RootMotionController" preserve="all"/>
+<type fullname="StringUtility" preserve="all"/>
+<type fullname="TextureUtility" preserve="all"/>
+</assembly>
 <assembly fullname="Assembly-CSharp">
 <type fullname="AnimationBehaviors" preserve="all"/>
 <type fullname="CharacterBehaviors" preserve="all"/>
@@ -18,6 +38,7 @@
 <type fullname="AIMovement" preserve="all"/>
 <type fullname="Movement" preserve="all"/>
 <type fullname="Movementteste" preserve="all"/>
+<type fullname="VirtualJoystickHandler" preserve="all"/>
 <type fullname="DefaultInitializationErrorHandler" preserve="all"/>
 <type fullname="DefaultTrackableEventHandler" preserve="all"/>
 </assembly>

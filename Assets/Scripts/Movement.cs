@@ -68,6 +68,18 @@ public class Movement : MonoBehaviour {
 	}
 
 	void Turning(float h, float v){
+		if(h > 0f){
+			h = 1;
+		}else if(h < 0f){
+			h = -1;
+		}
+
+		if(v > 0f){
+			v = 1;
+		}else if(v < 0f){
+			v = -1;
+		}
+		Debug.Log("HORIZONTAL"+ h+"  vertical"+v);
 		var angleH = ((h * 90F * Time.deltaTime) * 100f);
 		var angleV = ((v * 90F * Time.deltaTime) * 100f);
 		
@@ -166,35 +178,35 @@ public class Movement : MonoBehaviour {
 			
 			if(playerAngle < direcao && direcao < 0f){//(direcao 45- OPOSTO-135)  (direcao 90 OPOSTO -90)
 				rotate = 200f;
-				Debug.Log("1) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("1) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 				
 			}else if (playerAngle < direcao && direcao > 0f && playerAngle < oposite){
 				rotate = -200f;
-				Debug.Log("2) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("2) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}else if(playerAngle < direcao && direcao > 0f && playerAngle > oposite){
 				rotate = 200f;
-				Debug.Log("3) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("3) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}
 			
 			else if(playerAngle > direcao && playerAngle < oposite){//(direcao -45 OPOSTO 135)  (direcao -90 OPOSTO 90) (0 - 180)
 				rotate = -200f;
-				Debug.Log("4) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("4) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}
 			rotation.Set(0f,rotate,0f);
 			Quaternion deltaRotation = Quaternion.Euler(rotation  * Time.deltaTime);
 			playerRigidbody.MoveRotation(playerRigidbody.rotation * deltaRotation);
 
 		}else{
-			Debug.Log(playerAngle+"  "+direcao);
+			//Debug.Log(playerAngle+"  "+direcao);
 			if(playerAngle > direcao && direcao >= 0f){//(direcao -45 OPOSTO 135)  (direcao -90 OPOSTO 90) (0 - 180)
 				rotate = -200f;
-				Debug.Log("5) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("5) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}else if(playerAngle > direcao && (direcao < 0f && playerAngle < oposite)){
 				rotate = -200f;
-				Debug.Log("6) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("6) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}else if(playerAngle > direcao && (direcao < 0f && playerAngle > oposite)){
 				rotate = 200f;
-				Debug.Log("7) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("7) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}
 			
 			/*else if(playerAngle < direcao && direcao < 0f){
@@ -203,7 +215,7 @@ public class Movement : MonoBehaviour {
 			}*/
 			else if(playerAngle < direcao && direcao > 0f){
 				rotate = 200f;
-				Debug.Log("8) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
+				//Debug.Log("8) - P angle = "+playerAngle+"  direcao="+direcao+"   oposite="+oposite+"  rotation="+rotate);
 			}
 
 			rotation.Set(0f,rotate,0f);
