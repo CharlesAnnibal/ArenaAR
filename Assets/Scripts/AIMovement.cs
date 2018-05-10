@@ -19,6 +19,10 @@ public class AIMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		nav.SetDestination(player.position);
+		//float distance = Vector3.Distance(player.position,transform.position);
+		//if(distance > 3.0f){
+			nav.SetDestination(player.position);
+		//}
+		
 	}
 }
